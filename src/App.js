@@ -11,11 +11,10 @@ export default class App extends Component {
         { id: 2, },
         { id: 3, },
       ],
+      score: 0,
+      time: 0,
+      game: false,
     }
-  }
-
-  speedgame = () => {
-    // change the color of the circle to red after click on it
   }
 
   render() {
@@ -35,8 +34,12 @@ export default class App extends Component {
             </div>
         ))}
         <div>
-
         </div>
+
+        <button onClick={this.easylevel} >Easy level</button>
+        <button onClick={this.mediumlevel} >Medium level</button>
+        <button onClick={this.hardlevel} >Hard level</button>
+
       </div>
     )
   }
