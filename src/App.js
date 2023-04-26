@@ -1,247 +1,93 @@
 import React, { Component } from 'react'
+import Circle from './Circle.jsx'
+import Gameover from './Gameover.jsx'
+import { circles } from './circles.js'
 
 import './App.css'
 
+const getrandominteger = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
 export default class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      circles: [
-        { id: 1, },
-        { id: 2, },
-        { id: 3, backgroundColor: 'blue' },
-      ],
-      score: 0,
-      time: 0,
-      game: false,
-    }
+  state = {
+    circles: circles,
+    score: 0,
+    current: 0,
+    pace: 1000,
+    gameover: false,
+    counter: 0,
+    gameon: false
   }
 
-  easylevel = (id, click) => {
+  timer;
+
+  clickhandler = (circle) => {
+    if(this.state.current !== circle) {
+      return this.stophandler();
+    }
     this.setState({
-      circles: [
-        { id: 1, },
-        { id: 2, },
-        { id: 3, },
-      ],
-      score: 0,
-      time: 0,
-      game: true,
+      score: this.state.score + 10,
+      counter: this.state.counter - 1
     })
-    // change background color of each circle at a time to blue in state and shuffle order randomly after blue color is clicked on set interval
-    setInterval(() => {
-      if (this.state.game === true) {
-        const random = Math.floor(Math.random() * this.state.circles.length)
-        const circles = this.state.circles
-        circles[random].color = 'blue'
-        this.setState({
-          circles: circles,
-        })
-        setTimeout(() => {
-          circles[random].color = 'white'
-          this.setState({
-            circles: circles,
-          })
-        }, 3000)
-      }
-    }
-    ,1000)
-    if (this.state.circles.backgroundColor === 'blue') {
-      this.setState({
-        score: this.state.score + 1,
-      })
-    } else {
-      this.setState({
-        score: this.state.score - 1,
-      })
-    }
   }
 
-  mediumlevel = () => {
-    this.setState({
-      circles: [
-        { id: 1, },
-        { id: 2, },
-        { id: 3, },
-        { id: 4, },
-      ],
-      score: 0,
-      time: 0,
-      game: true,
-    })
-    // shuffle shuffle green color background of circles randomly on set interval
-    setInterval(() => {
-      if (this.state.game === true) {
-        const random = Math.floor(Math.random() * this.state.circles.length)
-        const circles = this.state.circles
-        circles[random].color = 'blue'
-        this.setState({
-          circles: circles,
-        })
-        setTimeout(() => {
-          circles[random].color = 'white'
-          this.setState({
-            circles: circles,
-          })
-        }, 2000)
-      }
-    } ,1000)
-  }
+  randomnumber = () => {
+    if (this.state.counter >= 5) {
+      return this.stophandler();
+    }
 
+    let nextactive;
 
-  hardlevel = (active, index) => {
-    this.setState({
-      circles: [
-        { id: 1, },
-        { id: 2, },
-        { id: 3, },
-        { id: 4, },
-        { id: 5, },
-      ],
-      score: 0,
-      time: 0,
-      game: true,
-    })
-    // shuffle green color background of circles randomly on set interval
-    setInterval(() => {
-      if (this.state.game === true) {
-        const random = Math.floor(Math.random() * this.state.circles.length)
-        const circles = this.state.circles
-        circles[random].color = 'blue'
-        this.setState({
-          circles: circles,
-        })
-        setTimeout(() => {
-          circles[random].color = 'white'
-          this.setState({
-            circles: circles,
-          })
-        }, 1000)
-      }
-    }
-    ,1000)
-    // each time a blue circle is clicked on, add 1 to score
-    if (this.state.circles.backgroundColor === 'blue') {
-      this.setState({
-        score: this.state.score + 1,
-      })
-    }
-    // each time a non blue circle is clicked on, subtract 1 from score
-    else {
-      this.setState({
-        score: this.state.score - 1,
-      })
-    }
-  }
+    do {
+      nextactive = getrandominteger(1, this.state.circles.length - 1);
+  } while (nextactive === this.state.current);
 
-  startGame = (id, active) => {
-    this.setState({
-      game: true,
-    })
-    // shuffle the id of the circles randomly on set interval and if active id is clicked on, add 1 to score
-    setInterval(() => {
-      if (this.state.game === true) {
-        const random = Math.floor(Math.random() * this.state.circles.length)
-        const circles = this.state.circles
-        circles[random].color = 'blue'
-        this.setState({
-          circles: circles,
-        })
-        setTimeout(() => {
-          circles[random].color = 'white'
-          this.setState({
-            circles: circles,
-          })
-        }, 3000)
-      }
-    }
-    ,1000)
-    if (this.state.circles.backgroundColor === 'blue') {
-      this.setState({
-        score: this.state.score + 1,
-      })
-    } else {
-      this.setState({
-        score: this.state.score - 1,
-      })
-    }
-  }
+  this.setState({
+    current: nextactive,
+    speed: this.state.pace * 0.95,
+    counter: this.state.counter + 1
+  })
 
-  speedgame = (id, active) => {
-    this.setState({
-      game: true,
-    })
-    // shuffle the id of the circles randomly on set interval and if active id is clicked on, add 1 to score
-    setInterval(() => {
-      if (this.state.game === true) {
-        const random = Math.floor(Math.random() * this.state.circles.length)
-        const circles = this.state.circles
-        circles[random].color = 'blue'
-        this.setState({
-          circles: circles,
-        })
-        setTimeout(() => {
-          circles[random].color = 'white'
-          this.setState({
-            circles: circles,
-          })
-        }, 1000)
-      }
-    }
-    ,1000)
-    if (this.state.circles.backgroundColor === 'blue') {
-      this.setState({
-        score: this.state.score + 1,
-      })
-    } else {
-      this.setState({
-        score: this.state.score - 1,
-      })
-    }
-  }
-  
+  this.timer = setTimeout(this.randomnumber, this.state.pace);
+}
+
+starthanddler = () => {
+  this.randomnumber();
+}
+
+stophandler = () => {
+  clearTimeout(this.timer);
+
+  this.setState({
+    gameover: !this.state.gameover
+  })
+}
+
+closehandler = () => {
+  this.setState({
+    gameover: !this.state.gameover,
+    score: 0
+  })
+}
 
   render() {
     return (
+
       <div className='App-header'>
-
-        <div onClick={this.clickcircle} className='circle1'></div>
-        <div onClick={this.clickcircle} className='circle2'></div>
-        <div onClick={this.clickcircle} className='circle3'></div>
-
-        <button className='start' onClick={this.startGame}>Start Game</button>
-        <button className='end' onClick={this.stopGame}>Stop Game</button>
-
-        {this.state.circles.map((circle) => (
-          <div onClick={this.speedgame}
-            key={circle.id}
-            style={{
-              backgroundColor: 'white',
-              width: 100,
-              height: 100,
-              borderRadius: '50%',
-            }}>
-            {circle.color}
-            </div>
-        ))}
-        <div>
-      </div>
-
-        <div>
-          <button className='easy' onClick={this.easylevel} >Easy level</button>
-          <button className='medium' onClick={this.mediumlevel} >Medium level</button>
-          <button className='hard' onClick={this.hardlevel} >Hard level</button>
-        </div>
-
-
-
-        <div>
           <h2>Score: {this.state.score}</h2>
-          <h2>Time: {this.state.time}</h2>
-        </div>
+          <button onClick={this.starthanddler} className='start'>Start</button>
+          <button onClick={this.stophandler} className='stop'>Stop</button>
+
+          {this.state.gameover && <Gameover close={this.closehandler} score={this.state.score} />}
+
+          <div className='circle'>
+          {this.state.circles.map(circle => <Circle key={circle} click={() => this.clickhandler(circle)}
+          active={this.state.current === circle} gameon={this.state.gameon}
+          />)}
+          </div>
 
       </div>
     )
   }
 }
-

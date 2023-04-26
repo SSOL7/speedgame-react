@@ -1,3 +1,10 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .App {
   text-align: center;
 }
@@ -14,7 +21,7 @@
 }
 
 .App-header {
-background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+  background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: inherit;
@@ -37,74 +44,8 @@ background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%,
   }
 }
 
-.easy {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-
-.medium {
-  background-color: #fb8600;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-
-.hard {
-  background-color: #ba0000;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-
-.circle1 {
-  width: 100px;
-  height: 100px;
-  background-color: white;
-  border-radius: 50%;
-  display: inline-block;
-  margin: 10px;
-}
-
-.circle2 {
-  width: 100px;
-  height: 100px;
-  background-color: white;
-  border-radius: 50%;
-  display: inline-block;
-  margin: 10px;
-}
-
-.circle3 {
-  width: 100px;
-  height: 100px;
-  background-color: white;
-  border-radius: 50%;
-  display: inline-block;
-  margin: 10px;
-}
-
 .start {
-  background-color: #4CAF50;
+  background-color: #4CAF50; /* Green */
   border: none;
   color: white;
   padding: 15px 32px;
@@ -112,12 +53,11 @@ background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%,
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
+  margin-right: 1rem;
 }
 
-.end {
-  background-color: #ba0000;
+.stop {
+  background-color: #ff1100; /* Red */
   border: none;
   color: white;
   padding: 15px 32px;
@@ -125,6 +65,32 @@ background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%,
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
 }
+
+
+.circle {
+  width: 100px;
+  height: 100px;
+  background: #fff;
+  border-radius: 50%;
+  margin: 0 auto;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.circle:first-child {
+  background: #ff1100;
+}
+
+.circle:nth-child(2) {
+  background: #ff1100;
+}
+
+.circle:last-child {
+  background: #ff1100;
+}
+
+.circle-active {
+  background: #4CAF50;
+}
+
